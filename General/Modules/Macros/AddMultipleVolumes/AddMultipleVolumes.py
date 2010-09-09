@@ -16,3 +16,6 @@ def Add():
     
     # Switch, so we can add both images
     ctx.field("Switch.currentInput").value = 1
+    
+def RemoveAll():
+  ctx.field("MarkerListEditor.deleteAll").touch()

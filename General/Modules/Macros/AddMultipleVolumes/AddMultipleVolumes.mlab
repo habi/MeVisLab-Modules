@@ -2,9 +2,63 @@
 network  {
   watchlist = ""
 }
+module Info {
+  internal  {
+    frame = "373 405 56 56"
+    moduleGroupName = ""
+    windows  {
+      window _default {
+        geometry = "484 574 564 375"
+        sizeHint = "564 375"
+        wasOpen = no
+        wasActive = no
+      }
+    }
+  }
+  fields  {
+    instanceName = Info
+    bypassIndex = 0
+    inPlaceIndex = 0
+  }
+}
+module Scale {
+  internal  {
+    frame = "865 21 64 56"
+    moduleGroupName = ""
+    windows  {
+      window _default {
+        geometry = "1042 370 384 232"
+        sizeHint = "384 232"
+        wasOpen = yes
+        wasActive = no
+      }
+    }
+  }
+  fields  {
+    instanceName = Scale
+    inputMin = 0
+    inputMax = 4095
+    updateMode = AutoUpdateMinMaxOn
+    useTrueRange = FALSE
+    typeSelect = Automatic
+    outputMin = 13
+    outputMax = 4095
+  }
+}
+module Bypass {
+  internal  {
+    frame = "449 553 96 64"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = ImageInput
+    ignoreNextNotify = FALSE
+    noBypass = FALSE
+  }
+}
 module SoView2DOverlay {
   internal  {
-    frame = "973 233 136 64"
+    frame = "565 385 136 64"
     moduleGroupName = ""
     windows  {
       window _default {
@@ -56,13 +110,13 @@ module SoView2DOverlay {
 }
 module RegionGrowing {
   internal  {
-    frame = "965 357 120 56"
+    frame = "733 493 120 56"
     moduleGroupName = ""
     windows  {
       window _default {
-        geometry = "1419 280 579 554"
-        sizeHint = "579 554"
-        wasOpen = yes
+        geometry = "933 255 581 554"
+        sizeHint = "581 554"
+        wasOpen = no
         wasActive = no
       }
     }
@@ -70,8 +124,8 @@ module RegionGrowing {
   fields  {
     instanceName = RegionGrowing
     autoUpdateMode = AutoUpdate
-    lowerThreshold = 975.05
-    upperThreshold = 1056.95
+    lowerThreshold = 586.25
+    upperThreshold = 995.75
     autoThreshold = TRUE
     basicNeighborhoodType = BNBH_3D_6_XYZ
     extendedNeighborhoodType = ENBH_2D_4_XZ
@@ -93,24 +147,24 @@ module RegionGrowing {
     autoSelectHigherCoords = TRUE
     cCoord = 0
     uCoord = 0
-    posFillValue = -1
+    posFillValue = 13
     negFillValue = 0
     invertResult = FALSE
     showOuterBoundariesOnly = FALSE
     maxVolume = 100
     maxVolumeEnabled = FALSE
-    intervalSize = 1
+    intervalSize = 5
   }
 }
 module SoView2DMarkerEditor {
   internal  {
-    frame = "809 561 160 64"
+    frame = "561 649 160 64"
     moduleGroupName = ""
     windows  {
       window _default {
-        geometry = "158 177 435 783"
+        geometry = "2378 96 435 783"
         sizeHint = "435 783"
-        wasOpen = no
+        wasOpen = yes
         wasActive = no
       }
     }
@@ -176,14 +230,14 @@ module SoView2DMarkerEditor {
     listStringEnable = TRUE
     ownsList = TRUE
     applySelect = FALSE
-    id = -1
+    id = 13
     name = ""
     newName = ""
     overflowMode = None
     maxSize = 0
     useInsertTemplate = FALSE
     upToDate = TRUE
-    posXYZ = "0 0 0"
+    posXYZ = "45.5 12.5 0.5"
     posC = 0
     posT = 0
     posU = 0
@@ -199,7 +253,7 @@ module SoView2DMarkerEditor {
 }
 module View2D {
   internal  {
-    frame = "917 89 120 64"
+    frame = "477 273 120 64"
     moduleGroupName = ""
     windows  {
       window _automatic {
@@ -220,7 +274,7 @@ module View2D {
     instanceName = view
     inventorInputOn = TRUE
     view2DExtensionsOn = TRUE
-    startSlice = -1
+    startSlice = 0
     numSlices = 1
     numXSlices = 1
     sliceStep = 1
@@ -242,8 +296,8 @@ module View2D {
     baseColor = "1 1 1"
     margin = "2 2"
     sliceOrigin = "0 0"
-    lutCenter = 1
-    lutWidth = 1
+    lutCenter = 2047.5
+    lutWidth = 4095
     lutUseTraceColors = FALSE
     annotationOn = TRUE
     annotationMode = ANNO_MODE_AUTO
@@ -262,7 +316,7 @@ module View2D {
 }
 module FieldBypass {
   internal  {
-    frame = "1181 165 104 56"
+    frame = "965 269 104 56"
     moduleGroupName = ""
     windows  {
       window _default {
@@ -288,7 +342,7 @@ module FieldBypass {
 }
 module StringUtils {
   internal  {
-    frame = "1181 353 88 64"
+    frame = "965 457 88 64"
     moduleGroupName = ""
     windows  {
       window _default {
@@ -327,7 +381,7 @@ module StringUtils {
 }
 module BoolInt {
   internal  {
-    frame = "1161 257 128 64"
+    frame = "945 361 128 64"
     moduleGroupName = ""
     windows  {
       window _default {
@@ -351,7 +405,7 @@ module BoolInt {
 }
 module XMarkerListContainer {
   internal  {
-    frame = "717 109 152 56"
+    frame = "989 21 152 56"
     moduleGroupName = ""
     windows  {
       window _default {
@@ -365,18 +419,18 @@ module XMarkerListContainer {
   fields  {
     instanceName = XMarkerListContainer
     listString = ""
-    numItems = 0
+    numItems = 1
     index = 0
     persistent = FALSE
     listStringEnable = FALSE
     applySelect = FALSE
-    id = -1
+    id = 13
     name = ""
     newName = ""
     overflowMode = None
     maxSize = 0
     useInsertTemplate = FALSE
-    posXYZ = "0 0 0"
+    posXYZ = "45.5 12.5 0.5"
     posC = 0
     posT = 0
     posU = 0
@@ -392,7 +446,7 @@ module XMarkerListContainer {
 }
 module Arithmetic2 {
   internal  {
-    frame = "537 309 96 56"
+    frame = "673 117 96 56"
     moduleGroupName = ""
     windows  {
       window _default {
@@ -412,7 +466,7 @@ module Arithmetic2 {
 }
 module Switch {
   internal  {
-    frame = "329 221 80 56"
+    frame = "473 141 80 56"
     moduleGroupName = ""
     windows  {
       window _default {
@@ -425,14 +479,14 @@ module Switch {
   }
   fields  {
     instanceName = Switch
-    currentInput = 0
+    currentInput = 1
     numberOfInputs = 2
     maxInput = 1
   }
 }
 module MLImageFormatFileCache {
   internal  {
-    frame = "313 101 176 56"
+    frame = "457 21 176 56"
     moduleGroupName = ""
     windows  {
       window _default {
@@ -540,7 +594,7 @@ module MLImageFormatFileCache {
     progress = 0
     updateMode = AutoUpdate
     isSaving = FALSE
-    status = "Cache is off."
+    status = "Input image cached."
     tagList = ""
     userTag00 = ""
     userTag01 = ""
@@ -554,7 +608,7 @@ module MLImageFormatFileCache {
     userTag09 = ""
     regionOffset = "0 0 0 0 0 0"
     suppressWorldPos = FALSE
-    valid = FALSE
+    valid = TRUE
     preserveCacheFile = FALSE
     updateMode = Off
     tmpFileNamePrefix = ""
@@ -562,7 +616,7 @@ module MLImageFormatFileCache {
 }
 module MLImageFormatFileCache {
   internal  {
-    frame = "493 101 184 56"
+    frame = "637 21 184 56"
     moduleGroupName = ""
     windows  {
       window _default {
@@ -667,10 +721,10 @@ module MLImageFormatFileCache {
     strHintVisible9 = FALSE
     boolHintVisible9 = FALSE
     trueFileName = ""
-    progress = 0
+    progress = 1
     updateMode = AutoUpdate
     isSaving = FALSE
-    status = "Cache is off."
+    status = "Input image cached."
     tagList = ""
     userTag00 = ""
     userTag01 = ""
@@ -684,17 +738,23 @@ module MLImageFormatFileCache {
     userTag09 = ""
     regionOffset = "0 0 0 0 0 0"
     suppressWorldPos = FALSE
-    valid = FALSE
+    valid = TRUE
     preserveCacheFile = FALSE
     updateMode = Off
     tmpFileNamePrefix = ""
   }
 }
 connections  {
+  Info.input0 = ImageInput.output0
+  Scale.input0 = ImageInput.output0
+  Scale.outputMin = XMarkerListContainer.id
+  Scale.outputMax = Info.maxValue
   Overlay.image = RegionGrowing.output0
   Overlay.timePoint = view.timePoint
+  RegionGrowing.input0 = ImageInput.output0
   RegionGrowing.inMarkerList = MarkerListEditor.outXMarkerList
   RegionGrowing.posFillValue = XMarkerListContainer.id
+  view.inImage = ImageInput.output0
   view.inInvPreLUT = MarkerListEditor.self
   view.inInvPostLUT = Overlay.self
   view.annoCTValue = FieldBypass.outputString
