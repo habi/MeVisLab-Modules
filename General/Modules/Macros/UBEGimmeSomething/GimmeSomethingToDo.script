@@ -1,0 +1,29 @@
+//----------------------------------------------------------------------------------
+//! Macro module GimmeSomethingToDo
+/*!
+// \file    GimmeSomethingToDo.script
+// \author  David Haberthür
+// \date    2010-09-09
+//
+// This is a test Package
+*/
+//----------------------------------------------------------------------------------
+
+
+Interface {
+  Inputs {}
+  Outputs {}
+  Parameters {}
+}
+
+
+Commands {
+}
+
+//# MeVis signature v1
+//# key: MFowDQYJKoZIhvcNAQEBBQADSQAwRgJBANEfsmYse2e1dRhkQ9AQbreCq9uxwzWLoGom13MNYmyfwoJqQOEXljLFAgw2eEjaT12G4CdqKWhRxh9ANP6n7GMCARE=:VI/mB8bT4u+mRtf/ru8yUQi8BzpaS3UeL2x62YxsUYnVqCWuLrVNLiukIIjnJMKQXlc8ezmgOIcVAV7pgvgKpQ==
+//# owner: MeVis
+//# date: 2010-07-27T02:46:05
+//# hash: HuhVgGwsXKU3QV1SeQRkNi60lGFMyyyE/dDG1lmiZmFCx1RM3OBrjc3boWVI/1vCChCnEGKfvQaihUAlHhgZuA==
+//# MeVis end
+

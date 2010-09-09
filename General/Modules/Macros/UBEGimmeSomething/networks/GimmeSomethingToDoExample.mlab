@@ -1,0 +1,7 @@
+module GimmeSomethingToDo {
+  fields  {
+    instanceName = GimmeSomethingToDo
+  }
+
+}
+

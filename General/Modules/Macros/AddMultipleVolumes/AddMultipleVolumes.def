@@ -1,0 +1,9 @@
+MacroModule AddMultipleVolumes {
+  genre = ""
+  author = "David Haberthür"
+  status = "work-in-progress"
+  seeAlso = ""  
+  externalDefinition = "$(LOCAL)/AddMultipleVolumes.script"
+  comment = "adapted from MultiScaleSmoothing-module linked in this MeVisLab-Forum thread: http://is.gd/f0II2. Aims to add several succesively segmented Volumes to an image. Planned to be useful for ManholeCover method."
+
+} // MacroModule AddMultipleVolumes

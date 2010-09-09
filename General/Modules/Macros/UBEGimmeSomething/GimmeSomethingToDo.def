@@ -1,0 +1,23 @@
+//----------------------------------------------------------------------------------
+//! GimmeSomethingToDo module definition
+/*!
+// \file    GimmeSomethingToDo.def
+// \author  David Haberthür
+// \date    2010-09-09
+*/
+//----------------------------------------------------------------------------------
+
+MacroModule GimmeSomethingToDo {
+  genre = ""
+  author = "David Haberthür"
+  status = "work-in-progress"
+  comment = "This is a test Package"
+  keywords = "Test, something"
+  seeAlso = "none"
+  exampleNetwork = "$(LOCAL)/networks/GimmeSomethingToDoExample.mlab"
+   
+  externalDefinition = "$(LOCAL)/GimmeSomethingToDo.script"
+    scriptOnly = yes
+
+} // MacroModule GimmeSomethingToDo
+

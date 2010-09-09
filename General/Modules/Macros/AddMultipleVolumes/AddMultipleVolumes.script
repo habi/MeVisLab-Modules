@@ -1,0 +1,611 @@
+/*
+// ------------------------------------------------------------------------------
+// Script for AddMultipleVolumes module
+// This module aims to arithmetically add multiple segmented volumes to the input
+// image. 
+//-------------------------------------------------------------------------------
+*/
+
+Interface  {
+  Inputs  {
+    Field inMarkers {
+      internalName = MarkerListEditor.inXMarkerList
+    }
+    Field inImage {
+      internalName = view.inImage
+    }
+    Field inImage {
+      internalName = RegionGrowing.input0
+    }
+    Field inMarkers {
+      internalName = MarkerListEditor.inXMarkerList
+    }
+  }
+  
+  Outputs  {
+    Field OutputSegment {
+      internalName = MLImageFormatFileCache.output0
+      comment = "Comment for OutputMaskedImage"
+    }
+    Field OutputMarker {
+      internalName = XMarkerListContainer.outXMarkerList
+    }
+    Field outMask {
+      internalName = RegionGrowing.output0
+    }
+    Field outImage {
+      internalName = RegionGrowing.output1
+    }
+    Field outMarkers {
+      internalName = MarkerListEditor.outXMarkerList
+    }
+    Field viewerSelf {
+      internalName = view.self
+      hidden = yes
+    }
+  }
+  
+  
+  
+  Parameters {
+    Field minScale{ type = Int}
+    Field maxScale{ type = Int}
+    Field stepOfScale{type = Int}
+    Field Clear {type = Trigger}
+    Field Add {type = Trigger}
+    Field isInit {
+      type = bool
+      value = 1
+    }
+    Field autoUpdateMode {
+      internalName = RegionGrowing.autoUpdateMode
+    }
+    Field autoThreshold {
+      internalName = RegionGrowing.autoThreshold
+    }
+    Field basicNeighborhoodType {
+      internalName = RegionGrowing.basicNeighborhoodType
+    }
+    Field extendedNeighborhoodType {
+      internalName = RegionGrowing.extendedNeighborhoodType
+    }
+    Field intervalSize {
+      internalName = RegionGrowing.intervalSize
+    }
+    Field lowerThreshold {
+      internalName = RegionGrowing.lowerThreshold
+    }
+    Field unitLabel {
+      internalName = RegionGrowing.unitLabel
+    }
+    Field upperThreshold {
+      internalName = RegionGrowing.upperThreshold
+    }
+    Field useExtendedNBH {
+      internalName = RegionGrowing.useExtendedNBH
+    }
+    Field noSeeds {
+      internalName = RegionGrowing.noSeeds
+    }
+    Field stretchOutputOverTime {
+      internalName = RegionGrowing.stretchOutputOverTime
+    }
+    Field volumeCount {
+      internalName = RegionGrowing.volumeCount
+    }
+    Field status {
+      internalName = RegionGrowing.status
+    }
+    Field outputValid {
+      internalName = RegionGrowing.outputValid
+    }
+    Field startButtonActive {
+      internalName = RegionGrowing.startButtonActive
+    }
+    Field abortButtonActive {
+      internalName = RegionGrowing.abortButtonActive
+    }
+    Field theProgressBar {
+      internalName = RegionGrowing.theProgressBar
+    }
+    Field update {
+      internalName = RegionGrowing.update
+    }
+    Field stop {
+      internalName = RegionGrowing.stop
+    }
+    Field clear {
+      internalName = RegionGrowing.clear
+    }
+    Field cCoord {
+      internalName = RegionGrowing.cCoord
+    }
+    Field uCoord {
+      internalName = RegionGrowing.uCoord
+    }
+    Field unitType {
+      internalName = RegionGrowing.unitType
+    }
+    Field maxVolume {
+      internalName = RegionGrowing.maxVolume
+    }
+    Field maxVolumeEnabled {
+      internalName = RegionGrowing.maxVolumeEnabled
+    }
+    Field autoUpdateUnitType {
+      internalName = RegionGrowing.autoUpdateUnitType
+    }
+    Field showPartialResults {
+      internalName = RegionGrowing.showPartialResults
+    }
+    Field posFillValue {
+      internalName = RegionGrowing.posFillValue
+    }
+    Field negFillValue {
+      internalName = RegionGrowing.negFillValue
+    }
+    Field invertResult {
+      internalName = RegionGrowing.invertResult
+    }
+    Field showOuterBoundariesOnly {
+      internalName = RegionGrowing.showOuterBoundariesOnly
+    }
+    Field incrementalUpdateMode {
+      internalName = RegionGrowing.incrementalUpdateMode
+    }
+    Field removeAll {
+      type = trigger
+    }
+    Field markerPersistence {
+      internalName = MarkerListEditor.persistent
+    }
+    Field markerString {
+      internalName = MarkerListEditor.listString
+    }
+    Field deleteMarkerOnClick {
+      internalName = MarkerListEditor.deleteOnClick
+    }
+    Field markerOverflowMode {
+      internalName = MarkerListEditor.overflowMode
+    }
+    Field maxMarkers {
+      internalName = MarkerListEditor.maxSize
+    }
+    Field baseColor {
+      internalName = Overlay.baseColor
+    }
+    Field blendMode {
+      internalName = Overlay.blendMode
+    }
+    Field overlayAlpha {
+      internalName = Overlay.alphaFactor
+    }
+  }
+}
+
+Commands {
+  source = $(LOCAL)/AddMultipleVolumes.py
+  FieldListener Add {
+    command = Add
+  }
+  FieldListener Clear {
+    command = Clear
+    init = Yes // set it at the beginning
+  }
+}
+
+Description  {
+  Field inImage {
+    deprecatedName = "inputImage"
+    comment = "input image"
+  }
+  Field outMask {
+    deprecatedName = "outputImage"
+    comment = "segmentation result mask"
+  }
+  Field outImage {
+    deprecatedName = "outputmaskedInput"
+    comment = "masked input image"
+  }
+  Field intervalSize {
+    min = 0
+    max = 100
+  }
+  Field overlayAlpha {
+    min = 0
+    max = 1
+  }
+  Field autoUpdateMode {
+    deprecatedName = "autoUpdate"
+    items {
+      item Off {
+        deprecatedName = "FALSE"
+      }
+      item AutoUpdate {
+        deprecatedName = "TRUE"
+      }
+    }
+  }
+  Field update {
+    deprecatedName = "Go"
+  }
+  Field clear {
+    deprecatedName = "FlushMem"
+  }
+} // Description
+
+Commands  {
+  initCommand = "*js: init(); *"
+  FieldListener RegionGrowing.input0 { init = YES command = handleNewInputImage }
+  FieldListener removeAll { command = "*js: ctx.field("MarkerListEditor.deleteAll").touch(); *" }
+  //FieldListener markerPP { init = YES command = markerPPTouched }
+  source = $(LOCAL)/RegionGrowingMacro.js
+  ContextMenu {
+    MenuItem "Update" { field = update }
+    MenuItem "Clear" { field = clear }
+  }
+} // Commands
+
+
+
+Window  {
+  name = main
+  //wakeupCommand = "*js:ctx.window().showFullscreen(); *"
+  Category GRS {
+    expandX = YES
+    expandY = YES
+    //GuiListener markerPersistence {
+    //}
+    Horizontal {
+      expandX           = YES
+      expandY           = YES
+      Vertical {
+        Horizontal {
+          Field Clear {}
+          Field Add {}
+        }
+        Horizontal {
+          Field Switch.currentInput {}
+          Field XMarkerListContainer.id {}
+        }
+    Box  {
+      layout = Vertical
+      expandX = YES
+      expandY = YES
+      Horizontal  {
+        expandX = YES
+        expandY = YES
+        Category Viewer {
+          expandX = YES
+          expandY = YES
+          /*
+          Panel {
+          module = view
+          expandX = YES
+          expandY = YES
+          preferredWidth = 550
+          preferredHeight = 550
+          }*/
+
+
+          Viewer viewerSelf {
+            expandX = YES
+            expandY = YES
+            type = SoRenderArea
+            preferredWidth = 550
+            preferredHeight = 550
+          }
+        }
+        Vertical  {
+          alignY = Top
+          expandX = NO
+          //Box { layout Vertical expandX NO
+
+          TabView GrowRegionSimpleMacro {
+            width = 300
+            expandX = NO
+            expandY = NO
+            Category Main {
+              expandX = YES
+              Box "General Parameters" {
+                layout = Vertical
+                Field basicNeighborhoodType {
+                  alignGroup = mainGroup1
+                  labelAlignGroup = lag
+                  title = "Neighborhood Relation:"
+                  dependsOn = !useExtendedNBH
+                  expandX = YES
+                }
+                Horizontal {
+                  expandX = YES
+                  Field incrementalUpdateMode {
+                    alignX = LEFT
+                    labelAlignGroup = lag
+                    title = "Incremental Updates:"
+                  }
+
+                  Field autoUpdateMode {
+                    alignX = RIGHT
+                    title = "Auto-Update:"
+                  }
+                }
+                CheckBox autoThreshold {
+                  title = "Auto-Generate Thresholds"
+                }
+              } // Box "General Parameters"
+              //columnWidth2 250 }
+              Box "Automatic Threshold Parameters" {
+                layout = Vertical
+                Field intervalSize {
+                  alignGroup = mainGroup1
+                  title = "Interval Size (%):"
+                  format = "%3.3f"
+                  editAlign = right
+                  step = 0.02
+                  stepstep = 1.0
+                  slider = yes
+                  dependsOn = autoThreshold
+                  //columnWidth2 = 80
+                } // Field intervalSize
+
+              } // Box "Automatic Threshold Parameters"
+              Box "Manual Threshold Parameters" {
+                layout = Vertical
+                Table  {
+                  expandX = NO
+                  Row  {
+                    Field lowerThreshold {
+                      alignGroup = mainGroup1
+                      title = "Lower Threshold:"
+                      editAlign = right
+                      step = 1.0
+                      stepstep = 10.0
+                      slider = no
+                      //columnWidth2 = 80
+                      dependsOn = !autoThreshold
+                      format = "%5.3f"
+                    } // Field lower_Threshold
+
+                    Field unitLabel {
+                      title = ""
+                      edit = no
+                    }
+                  } // Row
+                  Row  {
+                    Field upperThreshold {
+                      alignGroup = mainGroup1
+                      title = "Upper Threshold:"
+                      editAlign = right
+                      step = 1.0
+                      stepstep = 10.0
+                      slider = no
+                      //columnWidth2 = 80
+                      dependsOn = !autoThreshold
+                      format = "%5.3f"
+                    } // Field upper_Threshold
+
+                    Field unitLabel {
+                      title = ""
+                      edit = no
+                    }
+                  } // Row
+                } // Table
+              } // Box "Manual Threshold Parameters"
+              Box "Marker List" {
+                layout = Vertical
+                Button removeAll {
+                  title = "Remove All Markers"
+                }
+              }
+            } // Category Main
+
+            Category "Advanced 1" {
+              expandX = YES
+              Box "Neighborhood Relation" {
+                expandX = YES
+                layout = Vertical
+                Horizontal {
+                  Label = "- Warning: Using a non-standard neighborhood relation might be slower -"
+                }
+                CheckBox useExtendedNBH {
+                  title = "Allow Extended Nbhd. Relations"
+                }
+                Field extendedNeighborhoodType {
+                  title = "Override Nbhd. Relation to:"
+                  dependsOn = useExtendedNBH
+                  expandX = NO
+                }
+              } // Box "Neighborhood Relation"
+              /*
+              Box "Higher Dimensional Coordinates" {layout Vertical
+              Label "Perform growing operation in the space defined by the following"
+              Label "fixed c-, t- and u- Voxel-Coordinates:"
+              Table {
+              Row{
+              Field cCoord { title "c:"}
+              Field uCoord { title "         u:"}
+              }
+              }
+              }*/
+              Box Thresholds {
+                Table  {
+                  expandX = NO
+                  Row  {
+                    Field unitType {
+                      title = "Specify Thresholds..."
+                      dependsOn = !autoUpdateUnitType
+                    }
+                    CheckBox autoUpdateUnitType {
+                      title = "Auto-Detect"
+                    }
+                    FieldListener unitType { init = YES command = unitTypeTouched }
+                  }
+                }
+              }
+              Box Markers {
+                layout = Vertical
+                // does not work with auto-update yet:
+                Table  {
+                  expandX = NO
+                  Row  {
+                    CheckBox deleteMarkerOnClick {
+                      title = "Delete on Click"
+                    }
+                    Field maxMarkers {
+                      title = "Maximal Number (0 = unlim.):"
+                      step = 1
+                      stepstep = 10
+                    }
+                  }
+                  Row  {
+                    CheckBox markerPersistence {
+                      title = "Persistent Markers"
+                    }
+                    Field markerOverflowMode {
+                      title = "Overflow Mode:"
+                    }
+                  }
+                  /*
+                  Row  {
+                  CheckBox markerPP {
+                  title = "Use Multi-Markers"
+                  }
+                  }*/
+                } // Table
+              } // Box Markers
+              Box "Volume Limit" {
+                Horizontal {
+                  expandX = NO
+                  Field maxVolume {
+                    title = "Stop if Volume Exceeds (ml):"
+                    editAlign = right
+                    format = "%5.3f"
+                    dependsOn = maxVolumeEnabled
+                  }
+                  CheckBox maxVolumeEnabled {
+                    title = "Enabled"
+                  }
+                }
+              }
+            } // Category "Advanced 1"
+
+            Category "Advanced 2" {
+              expandX = YES
+              Box Overlay {
+                layout = Vertical
+                Field blendMode {
+                  title = "Blend Mode:"
+                }
+                Field baseColor {
+                  title = "Color for Segmented Area:"
+                }
+                Field overlayAlpha {
+                  title = "Overlay Transparency:"
+                  editAlign = right
+                  format = %1.2f
+                  step = 0.01
+                  stepstep = 0.1
+                  slider = YES
+                }
+              } // Box Overlay
+              Box Output {
+                layout = Vertical
+                Horizontal {
+                  Label = "Output Values for Segmented/Non-Segmented Regions (Auto = -1):"
+                  Field posFillValue {
+                    title = ""
+                    format = %5.2f
+                    editAlign = right
+                  }
+                  Field negFillValue {
+                    title = "/"
+                    format = %5.2f
+                    editAlign = right
+                  }
+                }
+                CheckBox invertResult {
+                  title = "Invert Result Mask"
+                }
+                CheckBox showOuterBoundariesOnly {
+                  title = "Show Outer Object Boundaries Only"
+                }
+                CheckBox showPartialResults {
+                  title = "Show the Results of Incomplete Operations"
+                }
+
+              } // Box Output
+            } // Category "Advanced 2"
+          } // TabView GrowRegionSimpleDemo
+
+          // cat adv 2
+
+
+          // tabview
+
+          Box "Information" {
+            layout = Vertical
+            expandX = YES
+            //alignX = Left
+            Field noSeeds {
+              title = "Seed points:"
+              edit = no
+              expandX = YES
+            }
+            Field volumeCount {
+              title = "Segmented volume (ml): "
+              edit = no
+              expandX = YES
+            }
+            Field status {
+              title = "Operator status:"
+              edit = no
+              expandX = YES
+            }
+
+            /*Row {
+            Field globalStatus { title "Global status:" columnWidth2 240 edit no }
+            }*/
+            Field outputValid {
+              title = "Output up to date:"
+              edit = no
+            }
+
+          } // Box Information
+          // info-box
+
+          Box "Region Growing" {
+            layout = Horizontal
+            expandY = NO
+            Button update {
+              title = "Update"
+              //dependsOn = !abortButtonActive
+              expandX = NO
+              w = 80
+            }
+
+            Button stop {
+              title = "Abort"
+              dependsOn = abortButtonActive
+              w = 80
+              expandX = NO
+            }
+            ProgressBar theProgressBar {
+              height = 8
+              expandX = yes
+            }
+            Button clear {
+              title = "Clear"
+            }
+
+          } // Box "Region Growing"
+        } // Vertical
+
+      } // Horizontal
+    } // Box
+    //Execute = "*js:ctx.window().showFullscreen(); *"
+  } // Category GRS
+} // Window
+
+
+
+

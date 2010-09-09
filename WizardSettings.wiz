@@ -1,0 +1,30 @@
+// MDL v1 utf8
+wizard = MacroModuleWizard
+fields  {
+  instanceName = wizard
+  moduleName = GimmeSomethingToDo
+  author = "David Haberthür"
+  genre = ""
+  comment = "This is a test Package"
+  keywords = "Test, something"
+  seeAlso = none
+  exampleNetwork = TRUE
+  project = GimmeSomething
+  projectPrefix = UBE
+  includeProjectFiles = TRUE
+  stepTitle = "Module Properties"
+  stepInfo = "Enter the general properties of the module."
+  packageIdentifier = UBE/General
+  storedFieldList = "fieldName@fieldType@fieldComment@fieldValue@fieldValues"
+  fieldSelected = FALSE
+  networkFile = FALSE
+  scriptFileType = None
+  networkFileName = ""
+  localMacroEnabled = FALSE
+  localMacroFileName = ""
+  localMacroDeleteOriginalFiles = TRUE
+  fields = ""
+  numInputFields = 0
+  numOutputFields = 0
+  numParameterFields = 0
+}

@@ -1,0 +1,9 @@
+
+Package {
+  packageGroup = "UBE"
+  packageName  = "General"
+
+  owner = "David Haberthür"
+  description = "Package for MeVisLab-Development in Schittny-Group of the Institute of Anatomy"
+}
+
